@@ -7,24 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DA5EE39621C825140020556B /* DropdownController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5EE39521C825140020556B /* DropdownController.swift */; };
-		DA5EE39821C92EA50020556B /* DropdownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5EE39721C92EA50020556B /* DropdownButton.swift */; };
+		DA5EE39A21C961FE0020556B /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5EE39921C961FE0020556B /* DropdownView.swift */; };
+		DA5EE39C21C9C81C0020556B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA5EE39B21C9C81C0020556B /* LaunchScreen.storyboard */; };
 		DA98B31C21C15C81001AADCA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA98B31B21C15C81001AADCA /* AppDelegate.swift */; };
 		DA98B31E21C15C81001AADCA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA98B31D21C15C81001AADCA /* ViewController.swift */; };
-		DA98B32121C15C81001AADCA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA98B31F21C15C81001AADCA /* Main.storyboard */; };
-		DA98B32621C15C83001AADCA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA98B32421C15C83001AADCA /* LaunchScreen.storyboard */; };
 		DA98B32F21C16B7F001AADCA /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA98B32E21C16B7F001AADCA /* Buttons.swift */; };
 		DA98B33121C179C9001AADCA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA98B33021C179C9001AADCA /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DA5EE39521C825140020556B /* DropdownController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownController.swift; sourceTree = "<group>"; };
-		DA5EE39721C92EA50020556B /* DropdownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownButton.swift; sourceTree = "<group>"; };
+		DA5EE39921C961FE0020556B /* DropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
+		DA5EE39B21C9C81C0020556B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA98B31821C15C81001AADCA /* dropdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dropdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA98B31B21C15C81001AADCA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA98B31D21C15C81001AADCA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DA98B32021C15C81001AADCA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		DA98B32521C15C83001AADCA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA98B32721C15C83001AADCA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA98B32E21C16B7F001AADCA /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		DA98B33021C179C9001AADCA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -62,13 +58,11 @@
 			children = (
 				DA98B32D21C16B75001AADCA /* Utils */,
 				DA98B31B21C15C81001AADCA /* AppDelegate.swift */,
-				DA98B31D21C15C81001AADCA /* ViewController.swift */,
-				DA5EE39721C92EA50020556B /* DropdownButton.swift */,
-				DA5EE39521C825140020556B /* DropdownController.swift */,
-				DA98B31F21C15C81001AADCA /* Main.storyboard */,
-				DA98B32421C15C83001AADCA /* LaunchScreen.storyboard */,
 				DA98B33021C179C9001AADCA /* Assets.xcassets */,
+				DA5EE39B21C9C81C0020556B /* LaunchScreen.storyboard */,
 				DA98B32721C15C83001AADCA /* Info.plist */,
+				DA98B31D21C15C81001AADCA /* ViewController.swift */,
+				DA5EE39921C961FE0020556B /* DropdownView.swift */,
 			);
 			path = dropdown;
 			sourceTree = "<group>";
@@ -139,9 +133,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA98B32621C15C83001AADCA /* LaunchScreen.storyboard in Resources */,
+				DA5EE39C21C9C81C0020556B /* LaunchScreen.storyboard in Resources */,
 				DA98B33121C179C9001AADCA /* Assets.xcassets in Resources */,
-				DA98B32121C15C81001AADCA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,32 +147,12 @@
 			files = (
 				DA98B32F21C16B7F001AADCA /* Buttons.swift in Sources */,
 				DA98B31E21C15C81001AADCA /* ViewController.swift in Sources */,
-				DA5EE39821C92EA50020556B /* DropdownButton.swift in Sources */,
-				DA5EE39621C825140020556B /* DropdownController.swift in Sources */,
 				DA98B31C21C15C81001AADCA /* AppDelegate.swift in Sources */,
+				DA5EE39A21C961FE0020556B /* DropdownView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		DA98B31F21C15C81001AADCA /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DA98B32021C15C81001AADCA /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		DA98B32421C15C83001AADCA /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DA98B32521C15C83001AADCA /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		DA98B32821C15C83001AADCA /* Debug */ = {

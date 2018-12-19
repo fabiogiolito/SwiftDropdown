@@ -10,47 +10,46 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    // =================================
-    // MARK:- MODEL
-    
-    let options = [
-        DropdownButton.Option(title: "Edit",     icon: UIImage(named: "edit")!,     action: { print("selected edit")     }),
-        DropdownButton.Option(title: "Share",    icon: UIImage(named: "share")!,    action: { print("selected share")    }),
-        DropdownButton.Option(title: "Delete",   icon: UIImage(named: "delete")!,   action: { print("selected delete")   })
-    ]
-    
-    
-    // =================================
-    // MARK:- SUBVIEWS
-
-    lazy var dropdownButton: DropdownButton = {
-        let button = DropdownButton(type: .system)
-        button.setTitle("Custom button", for: .normal)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        
+        // Any button
+        let button = UIButton(type: .system)
+        button.setTitle("Dropdown", for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 14)
         button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         button.layer.cornerRadius = 8
         
-        // important to dropdown
-        button.backgroundColor = .blue // used as dropdown menu backgorund color
-        button.tintColor = .white // used as dropdown menu tint color
-        button.options = options // dropdown menu data
-        button.dropdown(target: self) // Initialize and configure Dropdown menu
+        // Button style is automatically applied to dropdown view
+        button.backgroundColor = .darkGray
+        button.tintColor = .white
         
-        return button
-    }()
-    
-    
-    // =================================
-    // MARK:- VIEW LIFECYCLE
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        // Add button to view first
+        view.addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        button.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
 
-        // Anchor button on screen
-        view.addSubview(dropdownButton)
-        dropdownButton.translatesAutoresizingMaskIntoConstraints = false
-        dropdownButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        dropdownButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-
+        // Define your dropdown options
+        let options = [
+            DropdownView.Option(title: "Edit",   icon: UIImage(named: "edit")!,   action: { print("selected edit")     }),
+            DropdownView.Option(title: "Share",  icon: UIImage(named: "share")!,  action: { print("selected share")    }),
+            DropdownView.Option(title: "Delete", icon: UIImage(named: "delete")!, action: { print("selected delete")   })
+        ]
+        
+        // Set a dropdown on your button
+        let dropdown = DropdownView(options: options, button: button, target: self, openDirection: .leftDown)
+        
+        // Customize the dropdown if necessary
+//        dropdown.layer.cornerRadius = 8
+//        dropdown.tintColor = .white
+//        dropdown.backgroundColor = .red
+//        dropdown.optionHighlightColor = UIColor(white: 1, alpha: 0.1)
+//        dropdown.overlayBackgroundColor = UIColor(white: 0, alpha: 0.1)
+//        dropdown.haptic = UIImpactFeedbackGenerator(style: .light)
+//        dropdown.springDamping = 0.7
+        
     }
+
 }
