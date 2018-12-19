@@ -16,14 +16,14 @@ class ViewController: UIViewController {
         
         // Any button
         let button = UIButton(type: .system)
-        button.setTitle("Dropdown", for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 14)
-        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
-        button.layer.cornerRadius = 8
+        button.setTitle("•••", for: .normal)
+//        button.titleLabel?.font = .boldSystemFont(ofSize: 14)
+//        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+//        button.layer.cornerRadius = 8
         
         // Button style is automatically applied to dropdown view
-        button.backgroundColor = .darkGray
-        button.tintColor = .white
+//        button.backgroundColor = .darkGray
+//        button.tintColor = .white
         
         // Add button to view first
         view.addSubview(button)
@@ -47,7 +47,7 @@ class ViewController: UIViewController {
 //        dropdown.backgroundColor = .red
 //        dropdown.optionHighlightColor = UIColor(white: 1, alpha: 0.1)
 //        dropdown.overlayBackgroundColor = UIColor(white: 0, alpha: 0.1)
-//        dropdown.haptic = UIImpactFeedbackGenerator(style: .light)
+//        dropdown.haptic = UIImpactFeedbackGenerator(style: .heavy)
 //        dropdown.springDamping = 0.7
         
     }

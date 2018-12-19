@@ -53,10 +53,9 @@ class DropdownView: UIView {
         didSet { didChangeHighlightedOption(oldValue) }
     }
     
+    private var haptic = UISelectionFeedbackGenerator()
     
     // Preferences
-    
-    var haptic: UIImpactFeedbackGenerator? = UIImpactFeedbackGenerator(style: .light)
     
     var springDamping: CGFloat = 2
     
@@ -285,7 +284,7 @@ class DropdownView: UIView {
     private func didChangeHighlightedOption(_ oldValue: Int?) {
         if highlightedOption != oldValue {
             if let highlightedOption = highlightedOption {
-                haptic?.impactOccurred()
+                haptic.selectionChanged()
                 optionsStackView.arrangedSubviews[highlightedOption].backgroundColor = optionHighlightColor
             }
             if let oldValue = oldValue {
@@ -313,6 +312,7 @@ class DropdownView: UIView {
     }
     
     @objc private func didTapButton(_ recognizer: UIGestureRecognizer) {
+        haptic.selectionChanged()
         showDropdown()
     }
     

@@ -99,6 +99,5 @@ dropdown.optionHighlightColor = UIColor(white: 1, alpha: 0.1)
 
 // Misc overrides
 dropdown.overlayBackgroundColor = UIColor(white: 0, alpha: 0.8) // Color of background overlay (use color with alpha)
-dropdown.haptic = UIImpactFeedbackGenerator(style: .heavy) // Vibration intensity (.heavy, .light, .medium)
-dropdown.springDamping = 0.7 // Animation damping, change if you want it more "springy"
+dropdown.springDamping = 0.7 // Animation damping, change if you want it more or less "springy"
 ```
