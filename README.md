@@ -1,34 +1,21 @@
 # SwiftDropdown
 
-Customizable Dropdown component written in Swift.
+Simple customizable Dropdown component written in Swift.
 
 
 ## Usage
 
 ``` swift
-// 1. Works with any button
-let myButton = UIButton(type: .system)
-myButton.setTitle("•••", for: .normal)
+// 1. Create dropdown
+let dropdown = DropdownView(options: [
+  DropdownView.Option(title: "Edit",   icon: UIImage(named: "edit")!,   action: { print("selected edit")   }),
+  DropdownView.Option(title: "Share",  icon: UIImage(named: "share")!,  action: { print("selected share")  }),
+  DropdownView.Option(title: "Delete", icon: UIImage(named: "delete")!, action: { print("selected delete") })
+], target: self)
 
-// 2. Define your dropdown options and actions
-let options = [
-    DropdownView.Option(title: "Edit",   icon: UIImage(named: "edit")!,   action: { print("selected edit")     }),
-    DropdownView.Option(title: "Share",  icon: UIImage(named: "share")!,  action: { print("selected share")    }),
-    DropdownView.Option(title: "Delete", icon: UIImage(named: "delete")!, action: { print("selected delete")   })
-]
-
-// 3. Create the dropdown
-let dropdown = DropdownView(
-                 options: options,        // Array of DropdownView.Option from above
-                 button: myButton,        // Button to trigger Dropdown
-                 target: self,            // The current UIViewController
-                 openDirection: .leftDown // The direction the Dropdown opens
-               )
+// 2. Attach dropdown to your button
+dropdown.attachTo(myButton, openDirection: .leftDown)
 ```
-
-The Dropdown view is layouted automatically. You only need to layout your button where you need it.
-
-
 
 ![preview](https://github.com/fabiogiolito/SwiftDropdown/blob/master/assets/preview.gif?raw=true)
 
@@ -53,7 +40,7 @@ struct Option {
 
 ## Open Directions
 
-Open direction will anchor the dropdown to the button appropriately and define the open animation direction.
+Open direction will anchor the dropdown to the button appropriately and define the open animation direction. You define the Open Direction on the `attachTo` function. If no direction is passed, defaults to `.leftDown`.
 
 ``` swift
 enum OpenDirection {
@@ -66,38 +53,27 @@ enum OpenDirection {
 ```
 
 
-## Using a custom button
+## Appearance
 
-Any button works, the dropdown will pick up the background color and tint of your button.
+You can customize the dropdown's appearance.
 
 ``` swift
-let customButton = MyCustomButtonClass()
-customButton.setTitle("Actions", for: .normal)
-customButton.backgroundColor = .blue
-customButton.tintColor = .white
+let options = [...]
+let dropdown = DropdownView(options: options, target: self)
 
-let dropdown = DropdownView(options: options, button: customButton, target: self, openDirection: .centerDown)
+// Dropdown appearance
+dropdown.tintColor = .white
+dropdown.backgroundColor = .blue
+dropdown.layer.cornerRadius = 8
+
+// Background color on a highlighted/tapped option
+dropdown.optionHighlightColor = UIColor(white: 0, alpha: 0.2)
+
+// Color of background overlay
+dropdown.backgroundOverlayColor = UIColor(white: 0, alpha: 0.1)
+
+// Spring animation damping
+dropdown.springDamping = 0.7
 ```
 
 ![Custom button](https://github.com/fabiogiolito/SwiftDropdown/blob/master/assets/custom.gif?raw=true)
-
-
-## Appearance
-
-You can override the dropdown's appearance after initalization.
-
-``` swift
-let dropdown = DropdownView(options: options, button: myButton, target: self, openDirection: .centerDown)
-
-// Dropdown appearance
-dropdown.layer.cornerRadius = 8
-dropdown.backgroundColor = UIColor.darkGray
-dropdown.tintColor = UIColor.white
-
-// Highlighted option background color
-dropdown.optionHighlightColor = UIColor(white: 1, alpha: 0.1)
-
-// Misc overrides
-dropdown.overlayBackgroundColor = UIColor(white: 0, alpha: 0.8) // Color of background overlay (use color with alpha)
-dropdown.springDamping = 0.7 // Animation damping, change if you want it more or less "springy"
-```

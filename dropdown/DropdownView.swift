@@ -46,31 +46,28 @@ class DropdownView: UIView {
     // MARK:- MODEL
     
     private var options: [Option] = []
-    private var button: UIButton?
+    private var buttonView: UIView?
     private var target: UIViewController?
     private var openDirection: OpenDirection?
     private var highlightedOption: Int? {
         didSet { didChangeHighlightedOption(oldValue) }
     }
-    
     private var haptic = UISelectionFeedbackGenerator()
     
+    
     // Preferences
-    
-    var springDamping: CGFloat = 2
-    
-    var overlayBackgroundColor: UIColor = UIColor(white: 0, alpha: 0.1) {
-        didSet { backgroundOverlay.backgroundColor = overlayBackgroundColor }
-    }
-    
-    var optionHighlightColor: UIColor = UIColor(white: 0, alpha: 0.1) {
-        didSet { updateOptionsStyles() }
-    }
     
     override var tintColor: UIColor! {
         didSet { updateOptionsStyles() }
     }
-
+    var optionHighlightColor: UIColor = UIColor(white: 0, alpha: 0.1) {
+        didSet { updateOptionsStyles() }
+    }
+    var backgroundOverlayColor: UIColor = UIColor(white: 0, alpha: 0.1) {
+        didSet { backgroundOverlay.backgroundColor = backgroundOverlayColor }
+    }
+    var springDamping: CGFloat = 2
+    
 
     // =================================
     // MARK:- SUBVIEWS
@@ -93,47 +90,50 @@ class DropdownView: UIView {
     // =================================
     // MARK:- INITIALIZERS
     
-    convenience init(options: [Option], button: UIButton, target: UIViewController, openDirection: OpenDirection = .leftDown) {
+    convenience init(options: [Option], target: UIViewController) {
         self.init()
-
-        self.options = options
-        self.button = button
-        self.target = target
-        self.openDirection = openDirection
         
+        // Model
+        self.options = options
+        self.target = target
+        
+        // Basic styles
+        self.alpha = 0
+        self.clipsToBounds = true
+        self.backgroundColor = .white
+        self.layer.cornerRadius = 16
+
         setupOptions()
-        setupGestures()
         layoutSubviews()
-        setupStyles()
+    }
+    
+    func attachTo(_ view: UIView, openDirection: OpenDirection = .leftDown) {
+        self.buttonView = view
+        self.openDirection = openDirection
+
+        layoutSubviews()
+        setupGestures()
     }
     
     
     // =================================
     // MARK:- LAYOUT SUBVIEWS
     
-    private func setupStyles() {
-        self.alpha = 0
-        self.clipsToBounds = true
-        self.transform = openDirection?.initialTransform ?? .identity
-        self.backgroundColor = button?.backgroundColor ?? .white
-        self.tintColor = button?.tintColor
-        self.layer.cornerRadius = 16
-    }
-    
-    private func updateOptionsStyles() {
-        for optionButton in optionsStackView.arrangedSubviews {
-            if let optionButton = optionButton as? UIButton {
-                optionButton.setBackgroundColor(color: optionHighlightColor, forState: .highlighted)
-                optionButton.setTitleColor(self.tintColor, for: .normal)
-            }
-        }
-    }
-    
     override func layoutSubviews() {
+        
+        self.transform = openDirection?.initialTransform ?? .identity
+
+        // Options stack view
+        self.addSubview(optionsStackView)
+        optionsStackView.translatesAutoresizingMaskIntoConstraints = false
+        optionsStackView.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+        optionsStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
+        optionsStackView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        optionsStackView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
         // Unwrap optionals
         guard let targetView = target?.view,
-              let button = button
+              let button = buttonView
         else { return }
         
         
@@ -146,15 +146,6 @@ class DropdownView: UIView {
         backgroundOverlay.rightAnchor.constraint(equalTo: targetView.rightAnchor).isActive = true
         
         
-        // Options stack view
-        self.addSubview(optionsStackView)
-        optionsStackView.translatesAutoresizingMaskIntoConstraints = false
-        optionsStackView.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        optionsStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
-        optionsStackView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        optionsStackView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        
-            
         // Dropdown menu (self)
         targetView.addSubview(self)
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -208,9 +199,21 @@ class DropdownView: UIView {
     }
     
     
+    // Update options styles when colors change
+    private func updateOptionsStyles() {
+        for optionButton in optionsStackView.arrangedSubviews {
+            if let optionButton = optionButton as? UIButton {
+                optionButton.setBackgroundColor(color: optionHighlightColor, forState: .highlighted)
+                optionButton.setTitleColor(self.tintColor, for: .normal)
+            }
+        }
+    }
+    
+    
     // =================================
     // MARK:- SETUP FUNCTIONS
     
+    // Create each option button and add to stack
     private func setupOptions() {
         for (index, option) in options.enumerated() {
             let optionButton = UIButton(type: .custom)
@@ -239,24 +242,25 @@ class DropdownView: UIView {
             optionsStackView.addArrangedSubview(optionButton)
         }
     }
-    
+
+    // Add gesture recognizers to buttonView
     private func setupGestures() {
-        
+
         // Tap Background
         backgroundOverlay.addTarget(self, action: #selector(didTapBackgroundOverlay(_:)), for: .touchUpInside)
         
         // Tap button
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapButton(_:)))
-        button?.addGestureRecognizer(tapRecognizer)
+        buttonView?.addGestureRecognizer(tapRecognizer)
         
         // Long press button
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressButton(_:)))
         longPressRecognizer.minimumPressDuration = 0.2
-        button?.addGestureRecognizer(longPressRecognizer)
+        buttonView?.addGestureRecognizer(longPressRecognizer)
         
         // Drag Button
         let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didLongPressButton(_:)))
-        button?.addGestureRecognizer(panRecognizer)
+        buttonView?.addGestureRecognizer(panRecognizer)
     }
     
     
@@ -323,7 +327,7 @@ class DropdownView: UIView {
             
         case .changed:
             let touchPosition = recognizer.location(in: self).y
-            let buttonHeight = (self.frame.height - 8 - 8) / CGFloat(options.count)
+            let buttonHeight = self.optionsStackView.frame.height / CGFloat(options.count)
             let activeButton = Int(touchPosition / buttonHeight)
             
             if Array(0...options.count - 1).contains(activeButton) {
